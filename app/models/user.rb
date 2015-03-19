@@ -17,11 +17,13 @@
 #  uid                    :string
 #  created_at             :datetime
 #  updated_at             :datetime
+#  userable_type          :string
+#  userable_id            :integer
 #
 
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  is_user
+
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 end

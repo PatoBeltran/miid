@@ -17,6 +17,8 @@
 #  uid                    :string
 #  created_at             :datetime
 #  updated_at             :datetime
+#  userable_type          :string
+#  userable_id            :integer
 #
 
 require 'rails_helper'
