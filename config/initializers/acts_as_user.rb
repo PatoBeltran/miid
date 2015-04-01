@@ -6,4 +6,5 @@ ActsAsUser.setup do |config|
   # Load and configure the ORM. Supports :active_record
   require 'acts_as_user/orm/active_record'
 
+  config.models_acting_as_users = [:student, :teacher]
 end
