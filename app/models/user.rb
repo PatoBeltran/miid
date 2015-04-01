@@ -23,8 +23,8 @@
 
 class User < ActiveRecord::Base
   is_user
-
-  devise :database_authenticatable, :registerable, :confirmable,
+  devise :database_authenticatable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
+
   validates :name, :uid, presence: true
 end

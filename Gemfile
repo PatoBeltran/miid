@@ -73,5 +73,5 @@ gem 'figaro'
 gem 'unicorn'
 gem 'annotate'
 gem 'acts_as_user'
-
+gem 'rails-erd'
 gem 'cancan'
