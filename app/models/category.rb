@@ -10,4 +10,5 @@
 #
 
 class Category < ActiveRecord::Base
+  validates :name, :color, presence: true
 end

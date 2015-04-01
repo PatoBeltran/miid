@@ -12,4 +12,6 @@
 class CourseRequirement < ActiveRecord::Base
   belongs_to :course
   belongs_to :requirement, class_name: "Course"
+
+  validates :course_id, :requiremente_id, presence: true
 end
