@@ -1,0 +1,21 @@
+<div>
+  <%= f.label :name, "Nombre" %>
+  <%= f.text_field :name %>
+</div>
+<div>
+  <%= f.label :uid, "Nomina" if teacher %>
+  <%= f.label :uid, "Matricula" if !teacher %>
+  <%= f.text_field :uid %>
+</div>
+<div>
+  <%= f.label :email, "Correo" %>
+  <%= f.text_field :email %>
+</div>
+<div>
+  <%= f.label :password, "Contraseña" %>
+  <%= f.password_field :password %>
+</div>
+<div>
+  <%= f.label :password_confirmation, "Confirmar Contraseña" %>
+  <%= f.password_field :password_confirmation %>
+</div>

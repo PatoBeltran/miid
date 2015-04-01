@@ -1,0 +1,12 @@
+<h1>Create category</h1>
+<%= form_for @category do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :color %>
+    <%= f.text_field :color %>
+  </div>
+  <%= f.submit %>
+<% end %>

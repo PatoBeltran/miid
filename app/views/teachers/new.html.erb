@@ -1,0 +1,6 @@
+<%= form_for @teacher do |f| %>
+  <%= render "shared/registration_user_fields", f: f, teacher: true %>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

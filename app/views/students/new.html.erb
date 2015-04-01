@@ -1,0 +1,10 @@
+<%= form_for @student do |f| %>
+  <%= render "shared/registration_user_fields", f: f, teacher: false %>
+  <div>
+    <%= f.label :graduation_date, "Año de Graduación" %>
+    <%= f.text_field :graduation_date %>
+  </div>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>
