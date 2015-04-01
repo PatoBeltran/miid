@@ -74,3 +74,4 @@ gem 'unicorn'
 gem 'annotate'
 gem 'acts_as_user'
 
+gem 'cancan'
