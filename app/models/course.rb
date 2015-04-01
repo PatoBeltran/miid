@@ -17,5 +17,7 @@ class Course < ActiveRecord::Base
   has_many :student_courses
   has_many :requirements, through: :course_requirements
   has_many :course_requirements
+  belongs_to :category
+
   validates :name, :code, :selectable, :category_id, presence: true
 end
