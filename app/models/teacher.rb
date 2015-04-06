@@ -3,7 +3,7 @@
 # Table name: teachers
 #
 #  id         :integer          not null, primary key
-#  admin      :boolean
+#  admin      :boolean          default("false")
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

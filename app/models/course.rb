@@ -6,7 +6,7 @@
 #  name        :string
 #  description :text
 #  code        :string
-#  selectable  :boolean
+#  selectable  :boolean          default("true")
 #  category_id :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null

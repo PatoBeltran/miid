@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :teachers
   resources :students
   resources :categories
+  resources :courses
 end

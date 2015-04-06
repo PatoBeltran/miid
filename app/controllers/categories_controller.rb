@@ -15,6 +15,10 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def index
+    @categories = Category.all
+  end
+
   private
 
   def category_params

@@ -1,0 +1,25 @@
+<%= form_for @course do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+  <div>
+    <%= f.label :code %>
+    <%= f.text_field :code %>
+  </div>
+  <div>
+    <%= f.label :selectable %>
+    <%= f.check_box :selectable, checked: true %>
+  </div>
+  <div>
+    <%= f.label :category %>
+    <%= f.select :category, options_for_select(Category.pluck(:name, :id)) %>
+  </div>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

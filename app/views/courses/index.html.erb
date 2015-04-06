@@ -1,0 +1,10 @@
+<% @courses.each do |course| %>
+  <% if course.selectable %>
+    <div>
+      <%=  course.name %>
+      <%=  course.description %>
+      <%=  course.code %>
+      <%=  course.category.name %>
+    </div>
+  <% end %>
+<% end %>
