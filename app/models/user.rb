@@ -33,6 +33,6 @@ class User < ActiveRecord::Base
   validates :name, :uid, presence: true
 
   def admin?
-    userable_type == "teacher" && userable.admin?
+    userable.admin?
   end
 end

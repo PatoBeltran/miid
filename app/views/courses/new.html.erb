@@ -1,25 +1,62 @@
-<%= form_for @course do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+<div class="row" style="margin-top: 20px;">
+  <div class="col s2">&nbsp;</div>
+  <div class="col s8">
+    <%= form_for @course do |f| %>
+      <div class="row blue z-depth-1" style="margin-bottom: 0; padding-top: 20px;">
+        <div class="input-field" style="margin-left: 40px; margin-right: 40px;">
+          <%= f.text_field :name, id: "className", class: "validate white-text" %>
+          <%= f.label :name, "Nombre de Materia", class:"white-text" %>
+        </div>
+      </div>
+      <div class="white z-depth-1" style="padding-top: 20px;">
+        <div class="row input-field" style="margin-left: 40px; margin-right: 40px;">
+          <div class="col s12">
+            <%= f.text_field :code, class:"validate" %>
+            <%= f.label :code, "Clave" %>
+          </div>
+        </div>
+
+        <div class="row input-field" style="margin-left: 40px; margin-right: 40px;">
+          <div class="col s12">
+            <%= f.text_area :description, class:"validate materialize-textarea" %>
+            <%= f.label :description, "Descripción" %>
+          </div>
+        </div>
+
+        <div class="row" style="margin-left: 40px; margin-right: 40px;">
+          <div class="col s12">
+            <%= f.check_box :selectable, checked: true, class: "filled-in" %>
+            <%= f.label :selectable, "Tópico a elegir" %>
+          </div>
+        </div>
+
+        <div class="row" style="margin-left: 40px; margin-right: 40px;">
+          <div class="input-field col s12">
+            <%= f.select :category, options_for_select(Category.pluck(:name, :id)) %>
+            <%= f.label :category, "Categoría" %>
+          </div>
+        </div>
+
+        <%= f.button(type: "submit", class:"btn waves-effect waves-light") do %>
+          Crear Materia <i class="mdi-content-send right"></i>
+        <% end %>
+      </div>
+    <% end %>
   </div>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
-  <div>
-    <%= f.label :code %>
-    <%= f.text_field :code %>
-  </div>
-  <div>
-    <%= f.label :selectable %>
-    <%= f.check_box :selectable, checked: true %>
-  </div>
-  <div>
-    <%= f.label :category %>
-    <%= f.select :category, options_for_select(Category.pluck(:name, :id)) %>
-  </div>
-  <div>
-    <%= f.submit %>
-  </div>
-<% end %>
+  <div class="col s2">&nbsp;</div>
+</div>
+
+
+<!-- 
+        <div class="row input-field" style="margin-left: 40px; margin-right: 40px;">
+          <div class="col s12">
+            <# f.text_field :requirements, class:"restrAuto validate last" %>
+            <<D-r># f.label :requirements, "Requisitos" %>
+          </div>
+        </div>
+
+        <ul id="myTags">
+          <li>Tag1</li>
+          <li>Tag2</li>
+        </ul>
+-->
