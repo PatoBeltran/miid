@@ -1,26 +1,32 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="row">
+  <div class="col s4 z-depth-1 valign-wrapper side-inner-wrapper">
+    <div class="row">
+      <div class="col s12 valign center-block center">
+        <h4 class="grey-text text-darken-1">Bienvenido</h4>
+        <%= form_for resource, as: resource_name, url: session_path(resource_name), style: "margin-top: 30px;", class: "center", method: "post" do |f| %>
+          <div class="input-field">
+            <%= f.email_field :email, autofocus: true, class: "validate" %>
+            <%= f.label :email, "Correo electrónico" %>
+          </div>
+          <div class="input-field">
+            <%= f.password_field :password, autocomplete: "off", class: "validate" %>
+            <%= f.label :password, "Contraseña" %>
+          </div>
+          <% if devise_mapping.rememberable? -%>
+            <p>
+              <%= f.check_box :remember_me, class: "filled-in" %>
+              <%= f.label :remember_me %>
+            </p>
+          <% end -%>
+          <div class="actions">
+            <%= f.button(type: "submit", class:"btn waves-effect waves-light") do %>
+              Iniciar Sesión <i class="mdi-content-send right"></i>
+            <% end %>
+          </div>
+        <% end %>
+          <%= render "devise/shared/links" %>
+        </h6>
+      </div>
     </div>
-  <% end -%>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

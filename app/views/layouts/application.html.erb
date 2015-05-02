@@ -7,16 +7,33 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <% if user_signed_in? %>
-      Signed in as <%= current_user.email %>. Not you?
-      <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to "Sign up As Teacher", new_teacher_path %> or
-      <%= link_to "Sign up As Student", new_student_path %> or
-      <%= link_to "Sign in", new_user_session_path %>
-    <% end %>
+    <div class="wrapper">
+      <div class="navbar-fixed">
+        <nav>
+          <div class="nav-wrapper blue">
+            <a href="#!" class="brand-logo center">Logo</a>
+            <ul class="left">
+              <% if user_signed_in? %>
+                <li><strong><%= current_user.email %></strong></li>
+              <% else %>
+                <li><%= link_to "Crear cuenta como maestro", new_teacher_path %></li>
+                <li><%= link_to "Crear cuenta como alumno", new_student_path %></li>
+              <% end %>
+            </ul>
+            <ul class="right">
+              <% if user_signed_in? %>
+                <li><%= link_to "Cerrar Sesión", destroy_user_session_path, method: :delete %></li>
+              <% else %>
+                <li><%= link_to "Iniciar sesión", new_user_session_path %></li>
+              <% end %>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <% flash.each do |key, value| %>
+        <%= content_tag :div, value, class: "flash #{key}" %>
+      <% end %>
     <%= yield %>
+    </div>
   </body>
 </html>
