@@ -7,6 +7,7 @@
 #  graduation_date :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  admin           :boolean          default("false")
 #
 
 class Student < ActiveRecord::Base
@@ -16,8 +17,4 @@ class Student < ActiveRecord::Base
 
   validates :uid, format: { with: /(A|a)0[\d]{7}/, message: "only allows students with valid matricula number" }
   validates :email, format: { with: /a0[\d]{7}@itesm.mx/, message: "only allows itesm email accounts" }
-
-  def admin?
-    false
-  end
 end
