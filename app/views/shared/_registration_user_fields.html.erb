@@ -1,21 +1,21 @@
-<div>
+<div class="input-field">
+  <%= f.text_field :name, class: "validate" %>
   <%= f.label :name, "Nombre" %>
-  <%= f.text_field :name %>
 </div>
-<div>
+<div class="input-field">
+  <%= f.text_field :uid, class: "validate" %>
   <%= f.label :uid, "Nomina" if teacher %>
   <%= f.label :uid, "Matricula" if !teacher %>
-  <%= f.text_field :uid %>
 </div>
-<div>
+<div class="input-field">
+  <%= f.text_field :email, class: "validate" %>
   <%= f.label :email, "Correo" %>
-  <%= f.text_field :email %>
 </div>
-<div>
+<div class="input-field">
+  <%= f.password_field :password, class: "validate" %>
   <%= f.label :password, "Contraseña" %>
-  <%= f.password_field :password %>
 </div>
-<div>
+<div class="input-field">
+  <%= f.password_field :password_confirmation, class: "validate" %>
   <%= f.label :password_confirmation, "Confirmar Contraseña" %>
-  <%= f.password_field :password_confirmation %>
 </div>

@@ -1,6 +1,15 @@
-<%= form_for @teacher do |f| %>
-  <%= render "shared/registration_user_fields", f: f, teacher: true %>
-  <div>
-    <%= f.submit %>
+<div class="row">
+  <div class="col s4 z-depth-1 valign-wrapper side-inner-wrapper">
+    <div class="row">
+      <div class="col s12 valign center-block center">
+        <h4 class="grey-text text-darken-1">Maestro</h4>
+        <%= form_for @teacher, style: "margin-top: 30px;", class: "center" do |f| %>
+          <%= render "shared/registration_user_fields", f: f, teacher: true %>
+          <%= f.button(type: "submit", class:"btn waves-effect waves-light") do %>
+            Crear Maestro <i class="mdi-content-send right"></i>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
   </div>
-<% end %>
+</div>
