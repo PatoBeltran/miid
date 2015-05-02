@@ -13,5 +13,12 @@ class CourseRequirement < ActiveRecord::Base
   belongs_to :course
   belongs_to :requirement, class_name: "Course"
 
-  validates :course_id, :requiremente_id, presence: true
+  validates :course_id, :requirement_id, presence: true
+
+  def to_builder
+    Jbuilder.new do |requirement|
+      requirement.from course_id
+      requirement.to requirement_id
+    end
+  end
 end

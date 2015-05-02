@@ -20,4 +20,11 @@ class Course < ActiveRecord::Base
   belongs_to :category
 
   validates :name, :code, :selectable, :category_id, presence: true
+
+  def to_builder
+    Jbuilder.new do |course|
+      course.id id
+      course.name name
+    end
+  end
 end
