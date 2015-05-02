@@ -36,13 +36,18 @@ function initDiagram() {
     myDiagram.nodeTemplate =
         $(go.Node, "Spot",
             { locationSpot: go.Spot.Center },
-            $(go.Shape, "Rectangle",
+            $(go.Shape, "RoundedRectangle",
                 { fill: "lightgray",  // the initial value, but data-binding may provide different value
-                    stroke: "black",
-                    desiredSize: new go.Size(30, 30) },
-                new go.Binding("fill", "fill")),
+                    strokeWidth: 10,
+                    desiredSize: new go.Size(100, 50) },
+                new go.Binding("fill", "fill"), new go.Binding("stroke", "stroke")),
             $(go.TextBlock,
-                new go.Binding("text", "text"))
+                new go.Binding("text", "text"), {
+                    isMultiline: true,
+                    desiredSize: new go.Size(100, 50),
+                    textAlign: "center",
+                    overflow: go.TextBlock.OverflowClip
+                })
         );
     // define the Link template to be minimal
     myDiagram.linkTemplate =
@@ -65,10 +70,12 @@ function generateDigraph() {
       url: "/show_tree"
     }).done(function(data) {
       for (i = 0; i < data.courses.length; i++) {
+          var color = go.Brush.randomColor();
         nodeArray.push({
             key: JSON.parse(data.courses[i]).id,
-            text: JSON.parse(data.courses[i]).name,
-            fill: go.Brush.randomColor()
+            text: JSON.parse(data.courses[i]).name.substr(0,40),
+            fill: color,
+            stroke: color
         });
       }
       myDiagram.model.nodeDataArray = nodeArray;
