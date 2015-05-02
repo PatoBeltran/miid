@@ -31,4 +31,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :name, :uid, presence: true
+
+  def admin?
+    userable_type == "teacher" && userable.admin?
+  end
 end

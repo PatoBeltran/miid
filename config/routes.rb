@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  devise_scope :user do
-    root to: "devise/sessions#new"
-  end
+  root to: "pages#landing"
   devise_for :users
   resources :teachers
   resources :students
   resources :categories
   resources :courses
+
+  post "link_course", to: "courses#link_course"
 end

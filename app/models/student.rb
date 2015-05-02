@@ -16,5 +16,8 @@ class Student < ActiveRecord::Base
 
   validates :uid, format: { with: /(A|a)0[\d]{7}/, message: "only allows students with valid matricula number" }
   validates :email, format: { with: /a0[\d]{7}@itesm.mx/, message: "only allows itesm email accounts" }
-  validates :major, presence: true
+
+  def admin?
+    false
+  end
 end
