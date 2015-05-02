@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   load_and_authorize_resource
-  skip_before_action :verify_authenticity_token, only: [:link_course, :codes]
+  skip_before_action :verify_authenticity_token, only: [:link_course, :codes, :unlink_course]
 
   def new
     @course = Course.new
@@ -26,6 +26,15 @@ class CoursesController < ApplicationController
       current_user.userable.courses << @course
     end
 
+    Student.eager_load(:courses)
+    Course.eager_load(:course_requirements)
+    respond_to do |format|
+      format.json { render :json => { courses: current_user.userable.courses.map{|c| c.to_builder.target! }, links: get_links(current_user.userable.courses) } }
+    end
+  end
+
+  def unlink_course
+    StudentCourse.where(course_id: params[:course_id], student_id: current_user.userable_id).destroy
     Student.eager_load(:courses)
     Course.eager_load(:course_requirements)
     respond_to do |format|
