@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  root to: 'pages#landing'
-
+  devise_scope :user do
+    root to: "devise/sessions#new"
+  end
   devise_for :users
   resources :teachers
   resources :students
