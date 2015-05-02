@@ -1,0 +1,32 @@
+<div class="row">
+  <div id="gallery" class="col s3 z-depth-1 no-padding" style="height: 100vh; overflow: scroll;">
+    <nav>
+      <div class="nav-wrapper grey lighten-2">
+        <form>
+          <div class="input-field">
+            <input id="search" type="search" required>
+            <label for="search"><i class="mdi-action-search"></i></label>
+            <i class="mdi-navigation-close"></i>
+          </div>
+        </form>
+      </div>
+    </nav>
+    <% @courses.each do |course| %>
+      <a href="#" class="col s12 red classTopic" data-key="<%= course.id %>">
+        <h5 class="white-text"><%= course.name %></h5>
+        <div class="red-text white center border-radius-13" style="width: 26px; height: 26px; line-height: 26px; position: absolute; bottom: 10px; right: 10px;"><%= course.requirements.count %></div>
+        <h6 class="white-text" style="position: absolute; bottom: 10px;"><%= course.code %></h6>
+      </a>
+    <% end %>
+  </div>
+
+  <div class="col s9">
+    <div id="sample">
+      <div style="margin-bottom: 5px; padding: 5px; background-color: aliceblue">
+      </div>
+      <div id="myDiagram" style="border: solid 1px black; background: white; width: 100%; height: 90vh">
+      </div>
+
+    </div>
+  </div>
+</div>

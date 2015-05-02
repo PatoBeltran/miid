@@ -137,8 +137,9 @@ right connector from last child*/
 }
 
 @import "pages";
-@import "categories";
-@import "courses";
 @import "students";
-@import "teachers";
 @import "materialize";
+@import "jquery-ui.structure.min.css";
+@import "jquery-ui.theme.min.css";
+@import "jquery.tagit.css";
+@import "tagit.ui-zendesk.css";

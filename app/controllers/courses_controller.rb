@@ -22,7 +22,7 @@ class CoursesController < ApplicationController
 
   def link_course
     @course = Course.find(params[:course_id])
-    unless current_user.userable.userable.courses.find(params[:course_id])
+    unless current_user.userable.userable.courses.where(id: params[:course_id]).any?
       current_user.userable.courses << @course
     end
 

@@ -16,6 +16,7 @@ class Ability
       can :manage, StudentCourse do |sc|
         sc.student_id == user.id
       end
+      can [:show_tree, :show], Student
     else
       can :create, User
       can :create, Student
