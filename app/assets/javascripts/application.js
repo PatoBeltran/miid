@@ -101,8 +101,7 @@ function generateDigraph() {
     for (i = 0; i < data.courses.length; i++) {
       //console.log(data);
       //var color = go.Brush.randomColor();
-      //var color = JSON.parse(data.courses[i]).color;
-      var color = JSON.parse(data.courses[i]).text;
+      var color = JSON.parse(data.courses[i]).color;
       nodeArray.push({
         key: JSON.parse(data.courses[i]).id,
         text: JSON.parse(data.courses[i]).name,
