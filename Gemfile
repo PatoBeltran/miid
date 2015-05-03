@@ -73,4 +73,5 @@ gem 'annotate'
 gem 'acts_as_user'
 gem 'rails-erd'
 gem 'cancan'
+gem "sendgrid"
 gem 'materialize-sass'
