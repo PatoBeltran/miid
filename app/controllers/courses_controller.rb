@@ -49,8 +49,7 @@ class CoursesController < ApplicationController
 
   def search_courses
     respond_to do |format|
-      #@TODO - fix
-      format.json { render :json => Course.search(params[:q]).limit(20) }
+      format.json { render :json => Course.search(params[:q]) }
     end
   end
 
