@@ -1,10 +1,23 @@
-<h1>Students</h1>
-<div>
-<% @students.each do |student| %>
-  <div>
-    <p><%= student.name %></p>
-    <p><%= student.email %></p>
+<div class="row" style="margin-top: 20px;">
+  <div class="col s2">&nbsp;</div>
+  <div class="col s8 z-depth-2">
+    <h4>Estudiantes</h4>
+    <table class="hoverable">
+      <thead>
+        <tr>
+          <th data-field="name">Nombre</th>
+          <th data-field="email">Correo</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @students.each do |student| %>
+        <tr>
+          <td><%= link_to student.name, student %></td>
+          <td><%= student.email %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
   </div>
-  <hr />
-<% end %>
+  <div class="col s2">&nbsp;</div>
 </div>

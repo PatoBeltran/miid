@@ -22,7 +22,9 @@
         </ul>
         <nav>
           <div class="nav-wrapper blue">
-            <a href="#" class="brand-logo center">Logo</a>
+            <%= link_to root_path, class:"brand-logo center" do %>
+              Logo
+            <% end %>
             <ul class="left">
               <% unless user_signed_in? %>
                 <li><%= link_to "Crear cuenta como maestro", new_teacher_path %></li>
