@@ -29,6 +29,10 @@ class Course < ActiveRecord::Base
   end
 
   def self.search(q)
-    where("name ILIKE (?) or code ILIKE (?) and selectable = 1", "%#{q}%", "%#{q}%").map{|c| {id: c.id, code: c.code, name: c.name, requirements: c.requirements.count }}
+    where("name ILIKE (?) or code ILIKE (?) and selectable = 1", "%#{q}%", "%#{q}%").map{|c| {id: c.id, code: c.code, name: c.name, requirements: c.requirements.count, category: c.category.name, color: c.category.color }}
+  end
+
+  def self.get_all(n = 20)
+    all.limit(n).map{ |a| { id: a.id, code: a.code, name: a.name, requirements: a.requirements.count, category: a.category.name, color: a.category.color }}
   end
 end
