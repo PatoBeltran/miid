@@ -11,7 +11,7 @@ class Ability
     elsif user.student?
       can :read, :all
       can :read, Category
-      can [:read, :link_course, :search_courses], Course
+      can [:read, :link_course, :search_courses, :course_description], Course
       can :read, CourseRequirement
       can :manage, StudentCourse do |sc|
         sc.student_id == user.id

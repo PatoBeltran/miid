@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   load_and_authorize_resource
-  skip_before_action :verify_authenticity_token, only: [:link_course, :codes, :unlink_course, :search_courses]
+  skip_before_action :verify_authenticity_token, only: [:link_course, :codes, :unlink_course, :search_courses, :course_description]
 
   def new
     @course = Course.new
@@ -52,6 +52,13 @@ class CoursesController < ApplicationController
   def search_courses
     respond_to do |format|
       format.json { render :json => Course.search(params[:q]).limit(20) }
+    end
+  end
+
+  def course_description
+    course = Course.find(params[:course_id])
+    respond_to do |format|
+      format.json { render :json => { name: course.name , text: course.description }}
     end
   end
 

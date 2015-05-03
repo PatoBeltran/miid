@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   get "course_codes", to: "courses#codes", :defaults => { :format => :json }
   get "show_tree", to: "students#show_tree", :defaults => { :format => :json }
   get "search_courses", to: "courses#search_courses", :defaults => { :format => :json }
+  get "course_description", to: "courses#course_description", :defaults => { :format => :json }
 end
