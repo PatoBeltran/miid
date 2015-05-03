@@ -159,45 +159,11 @@ $(function() {
   });
 
 
-    var availableTags = [
-        "ActionScript",
-        "AppleScript",
-        "Asp",
-        "BASIC",
-        "C",
-        "C++",
-        "Clojure",
-        "COBOL",
-        "ColdFusion",
-        "Erlang",
-        "Fortran",
-        "Groovy",
-        "Haskell",
-        "Java",
-        "JavaScript",
-        "Lisp",
-        "Perl",
-        "PHP",
-        "Python",
-        "Ruby",
-        "Scala",
-        "Scheme"
-    ];
-
-    function split( val ) {
-        return val.split( /,\s*/ );
-    }
-    function extractLast( term ) {
-        return split( term ).pop();
-    }
-
-
     var array = [];
     $("#myTags").tagit({
         tagSource: function(request, response)
         {
             $.ajax({
-                data: { term:request.term },
                 type: "GET",
                 url:        "/course_codes",
                 data: {q: $("#myTags").data("ui-tagit").tagInput.val()},
@@ -234,3 +200,32 @@ $(function() {
     $('select').material_select();
   initDiagram();
 });
+
+
+function searchCourse(q) {
+
+    $.ajax({
+        type: "GET",
+        data: {q: q},
+        url: "/search_courses",
+        dataType: "json",
+        success: function(data) {
+
+            $(".classTopic").remove();
+
+            data.forEach(function (element) {
+                var newChild = $('<a href="#" class="col s12 red classTopic" data-key="'+element.code+'">' +
+                    '<h5 class="white-text">'+element.name+'</h5>' +
+                    '<div class="red-text white center border-radius-13" style="width: 26px; height: 26px; line-height: 26px; position: absolute; bottom: 10px; right: 10px;">'+element.requirements+'</div>' +
+                    '<h6 class="white-text" style="position: absolute; bottom: 10px;">'+element.code+'</h6>' +
+                    '</a>');
+
+                $('#courses').append(newChild);
+            });
+
+
+        }
+    })
+
+}
+
