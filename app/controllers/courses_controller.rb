@@ -46,13 +46,13 @@ class CoursesController < ApplicationController
 
   def codes
     respond_to do |format|
-      format.json { render :json => Course.where("code ILIKE (?)", params[:q]).pluck(:code) }
+      format.json { render :json => Course.where("code ILIKE %?%", params[:q]).pluck(:code) }
     end
   end
 
   def search_courses
     respond_to do |format|
-      format.json { render :json => Course.where("name ILIKE (?) or code ILIKE (?)", params[:q]) }
+      format.json { render :json => Course.where("name ILIKE %?% or code ILIKE %?%", params[:q]) }
     end
   end
 
