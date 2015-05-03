@@ -51,7 +51,7 @@ class CoursesController < ApplicationController
 
   def search_courses
     respond_to do |format|
-      format.json { render :json => Course.where("name ILIKE (?) or code ILIKE (?)", "%#{params[:q]}%", "%#{params[:q]}%") }
+      format.json { render :json => Course.search(params[:q]) }
     end
   end
 

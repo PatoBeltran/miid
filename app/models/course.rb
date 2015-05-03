@@ -27,4 +27,8 @@ class Course < ActiveRecord::Base
       course.name name
     end
   end
+
+  def self.search(q)
+    where("name ILIKE (?) or code ILIKE (?)", "%#{q}%", "%#{q}%").map{|c| {id: c.id, code: c.code, name: c.name, requirements: c.requirements.count }}
+  end
 end
