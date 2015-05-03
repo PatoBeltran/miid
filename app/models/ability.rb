@@ -9,6 +9,7 @@ class Ability
     elsif user.teacher?
       can :read, :all
       can [:read, :link_course, :search_courses, :course_description], Course
+      can [:show_tree, :show], Student
     elsif user.student?
       can :read, :all
       can :read, Category
