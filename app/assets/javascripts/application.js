@@ -299,7 +299,15 @@ $(window).keydown(function (e) {
 
 
 
-function loadDescription() {
+function loadDescription(id) {
   $('#modal1').openModal();
-  $('.modal-content').html("<p>TESTTT</p>")
+
+  $.ajax({
+    url: "/course_description",
+    data: {course_id: id},
+    dataType: "json",
+    success: function(e) {
+      $('.modal-content').html("<h4>"+ e.name+"</h4><p>"+ e.text+"</p>");
+    }
+  })
 }

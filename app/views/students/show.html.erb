@@ -13,7 +13,7 @@
     </nav>
     <div id="courses">
       <% @courses.each do |course| %>
-        <a href="#" class="col s12 classTopic" onClick="loadDescription()" style="background-color: <%= course[:color] %>" data-key="<%= course[:id] %>">
+        <a href="#" class="col s12 classTopic" onClick="loadDescription(<%= course[:id] %>)" style="background-color: <%= course[:color] %>" data-key="<%= course[:id] %>">
           <h5 class="white-text"><%= course[:name] %></h5>
           <div class="red-text white center border-radius-13" style="width: 26px; height: 26px; line-height: 26px; position: absolute; bottom: 10px; right: 10px;"><%= course[:requirements] %></div>
           <h6 class="white-text"><%= course[:category] %></h6>
@@ -37,7 +37,8 @@
 <!-- Modal Structure -->
   <div id="modal1" class="modal" style="z-index:99999">
     <div class="modal-content">
-      <p id="text">A bunch of text</p>
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
     </div>
     <div class="modal-footer">
       <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
