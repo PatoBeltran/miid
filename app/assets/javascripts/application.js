@@ -16,6 +16,7 @@
 //= require materialize-sprockets
 //= require go
 //= require tag-it.min
+//= require spectrum
 //= require_self
 
 /**

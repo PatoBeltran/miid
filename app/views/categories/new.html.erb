@@ -1,12 +1,34 @@
-<h1>Create category</h1>
-<%= form_for @category do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+<div class="row" style="margin-top: 20px;">
+  <div class="col s2">&nbsp;</div>
+  <div class="col s8">
+    <% if @category.errors.any? %>
+      <ul>
+        <% @category.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+       </ul>
+    <% end %>
+    <%= form_for @category do |f| %>
+      <div class="row blue z-depth-1" style="margin-bottom: 0; padding-top: 20px;">
+        <div class="input-field" style="margin-left: 40px; margin-right: 40px;">
+          <%= f.text_field :name, id: "className", class: "validate white-text" %>
+          <%= f.label :name, "Nombre de la Categoría", class:"white-text" %>
+        </div>
+      </div>
+      <div class="white z-depth-1" style="padding-top: 20px;">
+        <div class="row" style="margin-left: 40px; margin-right: 40px; padding-bottom: 40px;">
+          <div class="col s12">
+            <%= f.label :color, "Color" %>
+            <%= f.color_field :color %>
+          </div>
+        </div>
+      </div>
+       <div class="center" style="padding-bottom: 30px; margin-top:10px;">
+          <%= f.button(type: "submit", class:"btn waves-effect waves-light") do %>
+            Crear Categoria <i class="mdi-content-send right"></i>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <div>
-    <%= f.label :color %>
-    <%= f.text_field :color %>
-  </div>
-  <%= f.submit %>
-<% end %>
+</div>
