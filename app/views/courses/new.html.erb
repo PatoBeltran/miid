@@ -30,33 +30,23 @@
           </div>
         </div>
 
-        <div class="row" style="margin-left: 40px; margin-right: 40px;">
+        <div class="row" style="margin-left: 40px; margin-right: 40px; margin-top:10px;">
           <div class="input-field col s12">
             <%= f.select :category, options_for_select(Category.pluck(:name, :id)) %>
             <%= f.label :category, "Categoría" %>
           </div>
         </div>
 
-        <%= f.button(type: "submit", class:"btn waves-effect waves-light") do %>
-          Crear Materia <i class="mdi-content-send right"></i>
-        <% end %>
+        <ul id="myTags" style="border:none; margin-left:40px; margin-right:40px;">
+         </ul>
+
+        <div class="center" style="padding-bottom: 30px; margin-top:10px;">
+          <%= f.button(type: "submit", class:"btn waves-effect waves-light") do %>
+            Crear Materia <i class="mdi-content-send right"></i>
+          <% end %>
+        </div>
       </div>
     <% end %>
   </div>
   <div class="col s2">&nbsp;</div>
 </div>
-
-
-<!-- 
-        <div class="row input-field" style="margin-left: 40px; margin-right: 40px;">
-          <div class="col s12">
-            <# f.text_field :requirements, class:"restrAuto validate last" %>
-            <<D-r># f.label :requirements, "Requisitos" %>
-          </div>
-        </div>
-
-        <ul id="myTags">
-          <li>Tag1</li>
-          <li>Tag2</li>
-        </ul>
--->
