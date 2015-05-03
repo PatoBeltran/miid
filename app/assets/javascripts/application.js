@@ -73,6 +73,7 @@ function initDiagram() {
           data: {course_id: idDel},
           method: "POST"
         });
+        rebuildGraph();
 
 
       }
