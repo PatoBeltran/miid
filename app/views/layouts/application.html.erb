@@ -15,6 +15,7 @@
           <% end %>
           <% if user_signed_in? && current_user.admin? %>
             <li><%= link_to "Materias", courses_path %></li>
+            <li><%= link_to "Categorias", categories_path %></li>
             <li class="divider"></li>
             <li><%= link_to "Crear Materia", new_course_path %></li>
             <li><%= link_to "Crear Categoria", new_category_path %></li>

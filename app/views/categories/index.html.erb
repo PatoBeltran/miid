@@ -1,5 +1,28 @@
-<% @categories.each do |category| %>
-  <div style="background: <%= category.color %>">
-    <%= category.name %>
+<div class="row" style="margin-top: 20px;">
+  <div class="col s2">&nbsp;</div>
+  <div class="col s8 z-depth-2">
+    <%= link_to new_category_path do %>
+      Crear Categoria
+    <% end %>
+    <h4>Categorias</h4>
+    <table class="hoverable">
+      <thead>
+        <tr>
+          <th data-field="name">Nombre</th>
+          <th data-field="color">Color</th>
+          <th data-field="erase">¿Borrar?</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @categories.each do |category| %>
+        <tr>
+          <td><%= category.name %></td>
+          <td><%= category.color %></td>
+          <td><%= link_to "BORRAR", category, method: :delete %>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
   </div>
-<% end %>
+  <div class="col s2">&nbsp;</div>
+</div>

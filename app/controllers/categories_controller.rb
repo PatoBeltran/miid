@@ -19,6 +19,11 @@ class CategoriesController < ApplicationController
     @categories = Category.all
   end
 
+  def destroy
+    Category.find(params[:id]).destroy
+    redirect_to categories_path, notice: "Categoria Borrada"
+  end
+
   private
 
   def category_params

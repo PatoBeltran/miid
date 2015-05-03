@@ -60,6 +60,11 @@ class CoursesController < ApplicationController
     end
   end
 
+  def destroy
+    Course.find(params[:id]).destroy
+    redirect_to courses_path, notice: "Curso Borrado"
+  end
+
   private
 
   def course_params

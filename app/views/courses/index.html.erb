@@ -11,6 +11,7 @@
           <th data-field="name">Nombre</th>
           <th data-field="code">Clave</th>
           <th data-field="selectable">Tópico a elegir</th>
+          <th data-field="erase">¿Borrar?</th>
         </tr>
       </thead>
       <tbody>
@@ -19,6 +20,7 @@
           <td><%= course.name %></td>
           <td><%= course.code %></td>
           <td><%= course.selectable? ? "SI" : "NO" %></td>
+          <td><%= link_to "BORRAR", course, method: :delete %>
         </tr>
       <% end %>
       </tbody>
