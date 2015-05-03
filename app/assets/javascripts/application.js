@@ -71,11 +71,11 @@ function initDiagram() {
         jQuery.ajax({
           url: "/unlink_course",
           data: {course_id: idDel},
-          method: "POST"
+          method: "POST",
+          success: function(e) {
+            rebuildGraph();
+          }
         });
-        rebuildGraph();
-
-
       }
   );
 
@@ -101,7 +101,9 @@ function generateDigraph() {
     url: "/show_tree"
   }).done(function(data) {
     for (i = 0; i < data.courses.length; i++) {
-      var color = go.Brush.randomColor();
+      console.log(data);
+      //var color = go.Brush.randomColor();
+      var color = JSON.parse(data.courses[i]).color;
       nodeArray.push({
         key: JSON.parse(data.courses[i]).id,
         text: JSON.parse(data.courses[i]).name,
@@ -265,10 +267,10 @@ function searchCourse(q) {
       $(".classTopic").remove();
 
       data.forEach(function (element) {
-        var newChild = $('<a href="#" class="col s12 red classTopic" style="background-color: '+element.color+'" data-key="'+element.id+'">' +
+        var newChild = $('<a href="#" class="col s12 red classTopic" onClick="loadDescription('+element.id+')" style="background-color: '+element.color+'" data-key="'+element.id+'">' +
             '<h5 class="white-text">'+element.name+'</h5>' +
             '<h6 class="white-text">'+element.category+'</h6>' +
-            '<div class="red-text white center border-radius-13" style="width: 26px; height: 26px; line-height: 26px; position: absolute; bottom: 10px; right: 10px;">'+element.requirements+'</div>' +
+            '<div class= white center border-radius-13" style="color: '+element.color+' width: 26px; height: 26px; line-height: 26px; position: absolute; bottom: 10px; right: 10px;">'+element.requirements+'</div>' +
             '<h6 class="white-text" style="position: absolute; bottom: 10px;">'+element.code+'</h6>' +
             '</a>');
 
@@ -295,9 +297,6 @@ $(window).keydown(function (e) {
       }
     }
 );
-
-
-
 
 function loadDescription(id) {
   $('#modal1').openModal();

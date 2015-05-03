@@ -136,6 +136,10 @@ right connector from last child*/
     /*border-color:  #94a0b4;*/
 }
 
+#lean-overlay {
+  z-index: 9999 !important;
+}
+
 @import "pages";
 @import "students";
 @import "materialize";
