@@ -11,7 +11,7 @@
       <div class="navbar-fixed">
         <ul id="dropdown1" class="dropdown-content">
           <% if user_signed_in? && current_user.teacher? %>
-            <%= link_to "Alumnos", students_path %>
+            <li><%= link_to "Alumnos", students_path %></li>
           <% end %>
           <% if user_signed_in? && current_user.admin? %>
             <li><%= link_to "Materias", courses_path %></li>
