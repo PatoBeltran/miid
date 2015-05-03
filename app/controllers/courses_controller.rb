@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   load_and_authorize_resource
-  skip_before_action :verify_authenticity_token, only: [:link_course, :codes, :unlink_course]
+  skip_before_action :verify_authenticity_token, only: [:link_course, :codes, :unlink_course, :search_courses]
 
   def new
     @course = Course.new
@@ -8,6 +8,8 @@ class CoursesController < ApplicationController
 
   def create
     @course = Course.new(course_params)
+
+    create_requirements(@course, params[:course_requirements])
 
     if @course.save
       redirect_to courses_path
@@ -44,7 +46,13 @@ class CoursesController < ApplicationController
 
   def codes
     respond_to do |format|
-      format.json { render :json => Course.pluck(:code) }
+      format.json { render :json => Course.where("code ILIKE (?)", params[:q]).pluck(:code) }
+    end
+  end
+
+  def search_courses
+    respond_to do |format|
+      format.json { render :json => Course.where("name ILIKE (?) or code ILIKE (?)", params[:q]) }
     end
   end
 
@@ -58,5 +66,12 @@ class CoursesController < ApplicationController
     links = []
     courses.map{ |c| c.course_requirements.map{|r| links << r.to_builder.target! }}
     links
+  end
+
+  def create_requirements(course, requirements)
+    requirements.split(",").each do |code|
+      req = Course.find_by(code: code)
+      course.requirements << req
+    end
   end
 end

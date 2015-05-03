@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   post "unlink_course", to: "courses#unlink_course", :defaults => { :format => :json }
   get "course_codes", to: "courses#codes", :defaults => { :format => :json }
   get "show_tree", to: "students#show_tree", :defaults => { :format => :json }
+  get "search_courses", to: "courses#search_courses", :defaults => { :format => :json }
 end
