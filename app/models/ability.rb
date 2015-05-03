@@ -11,12 +11,14 @@ class Ability
       can [:read, :link_course, :search_courses, :course_description], Course
       can [:show_tree, :show], Student
     elsif user.student?
-      can :read, :all
+      can :show, Student do |s|
+        s.id == user.userable_id
+      end
       can :read, Category
       can [:read, :link_course, :search_courses, :course_description], Course
       can :read, CourseRequirement
       can :manage, StudentCourse do |sc|
-        sc.student_id == user.id
+        sc.student_id == user.userable_id
       end
       can [:show_tree, :show], Student
     else
