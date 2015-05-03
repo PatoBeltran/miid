@@ -39,15 +39,12 @@ function initDiagram() {
   // define the Node template
   myDiagram.nodeTemplate =
       $(go.Node, "Spot",
-          { locationSpot: go.Spot.Center, deletable: true, canDelete: function() {console.log("a"); return true;} },
+          { locationSpot: go.Spot.Center, deletable: true, canDelete: function() {return true;} },
 
           $(go.Shape, "RoundedRectangle",
               { fill: "lightgray",  // the initial value, but data-binding may provide different value
                 strokeWidth: 10,
-                desiredSize: new go.Size(100, 50),
-                mouseEnter: function() {
-
-                }
+                desiredSize: new go.Size(100, 50)
               },
               new go.Binding("fill", "fill"), new go.Binding("stroke", "stroke")),
           $(go.TextBlock,
@@ -55,6 +52,7 @@ function initDiagram() {
                 isMultiline: true,
                 desiredSize: new go.Size(100, 50),
                 textAlign: "center",
+                stroke: "white",
                 overflow: go.TextBlock.OverflowClip
               })
       );
@@ -83,7 +81,7 @@ function initDiagram() {
       function(e) {
         var part = e.subject.part;
         lastClicked = e.subject.part;
-        if (!(part instanceof go.Link)) console.log("Clicked on " + part.data.key);
+        //if (!(part instanceof go.Link)) console.log("Clicked on " + part.data.key);
       });
 
   rebuildGraph();
@@ -101,7 +99,7 @@ function generateDigraph() {
     url: "/show_tree"
   }).done(function(data) {
     for (i = 0; i < data.courses.length; i++) {
-      console.log(data);
+      //console.log(data);
       //var color = go.Brush.randomColor();
       var color = JSON.parse(data.courses[i]).color;
       nodeArray.push({
@@ -144,7 +142,7 @@ function layout() {
 }
 
 function clickNode() {
-  console.log("Clicked");
+  //console.log("Clicked");
 }
 
 $(function() {
@@ -173,7 +171,8 @@ $(function() {
         var nodeArray = [];
         myDiagram.startTransaction("generateDigraph");
         for (i = 0; i < data.courses.length; i++) {
-          var color = go.Brush.randomColor();
+          //var color = go.Brush.randomColor();
+          var color = JSON.parse(data.courses[i]).color;
           nodeArray.push({
             key: JSON.parse(data.courses[i]).id,
             text: JSON.parse(data.courses[i]).name,
@@ -247,7 +246,7 @@ $(function() {
     $('select').material_select();
     $(".dropdown-button").dropdown();
 
-    console.log("HEY");
+    //console.log("HEY");
     if (document.getElementById("myDiagram")) {
       initDiagram();
     }
@@ -292,7 +291,7 @@ function searchCourse(q) {
 $(window).keydown(function (e) {
       //Supr 46
       if (e.keyCode == 8) {
-        console.log("A");
+        //console.log("A");
         myDiagram.commandHandler.deleteSelection();
       }
     }
