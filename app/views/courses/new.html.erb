@@ -1,6 +1,16 @@
 <div class="row" style="margin-top: 20px;">
   <div class="col s2">&nbsp;</div>
   <div class="col s8">
+    <% if @course.errors.any? %>
+      <ul>
+        <% @course.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        <% @course.requirements.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
     <%= form_for @course do |f| %>
       <div class="row blue z-depth-1" style="margin-bottom: 0; padding-top: 20px;">
         <div class="input-field" style="margin-left: 40px; margin-right: 40px;">
@@ -32,11 +42,11 @@
 
         <div class="row" style="margin-left: 40px; margin-right: 40px; margin-top:10px;">
           <div class="input-field col s12">
-            <%= f.select :category, options_for_select(Category.pluck(:name, :id)) %>
-            <%= f.label :category, "Categoría" %>
+            <%= f.select :category_id, options_for_select(Category.pluck(:name, :id)) %>
+            <%= f.label :category_id, "Categoría" %>
           </div>
         </div>
-
+        <input type="hidden" id="requirements_field" name="course_requirements" value="" />
         <ul id="myTags" style="border:none; margin-left:40px; margin-right:40px;">
          </ul>
 

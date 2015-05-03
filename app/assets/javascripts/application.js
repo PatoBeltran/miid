@@ -23,95 +23,95 @@
  * Created by Eduardo on 5/2/15.
  */
 function initDiagram() {
-    if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
-    var $ = go.GraphObject.make;  // for conciseness in defining templates
-    myDiagram =
-        $(go.Diagram, "myDiagram",  // must be the ID or reference to div
-            {
-                initialAutoScale: go.Diagram.UniformToFill,
-                layout: $(go.LayeredDigraphLayout)
-                // other Layout properties are set by the layout function, defined below
-            });
-    // define the Node template
-    myDiagram.nodeTemplate =
+  if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
+  var $ = go.GraphObject.make;  // for conciseness in defining templates
+  myDiagram =
+    $(go.Diagram, "myDiagram",  // must be the ID or reference to div
+      {
+        initialAutoScale: go.Diagram.UniformToFill,
+        layout: $(go.LayeredDigraphLayout)
+        // other Layout properties are set by the layout function, defined below
+      });
+      // define the Node template
+      myDiagram.nodeTemplate =
         $(go.Node, "Spot",
-            { locationSpot: go.Spot.Center },
-            $(go.Shape, "RoundedRectangle",
-                { fill: "lightgray",  // the initial value, but data-binding may provide different value
-                    strokeWidth: 10,
-                    desiredSize: new go.Size(100, 50) },
-                new go.Binding("fill", "fill"), new go.Binding("stroke", "stroke")),
-            $(go.TextBlock,
+          { locationSpot: go.Spot.Center },
+          $(go.Shape, "RoundedRectangle",
+            { fill: "lightgray",  // the initial value, but data-binding may provide different value
+              strokeWidth: 10,
+              desiredSize: new go.Size(100, 50) },
+              new go.Binding("fill", "fill"), new go.Binding("stroke", "stroke")),
+              $(go.TextBlock,
                 new go.Binding("text", "text"), {
-                    isMultiline: true,
-                    desiredSize: new go.Size(100, 50),
-                    textAlign: "center",
-                    overflow: go.TextBlock.OverflowClip
+                  isMultiline: true,
+                  desiredSize: new go.Size(100, 50),
+                  textAlign: "center",
+                  overflow: go.TextBlock.OverflowClip
                 })
-        );
-    // define the Link template to be minimal
-    myDiagram.linkTemplate =
-        $(go.Link,
-            { selectable: false },
-            $(go.Shape));
-    // generate a tree with the default values
-    rebuildGraph();
+         );
+         // define the Link template to be minimal
+         myDiagram.linkTemplate =
+           $(go.Link,
+             { selectable: false },
+             $(go.Shape));
+             // generate a tree with the default values
+             rebuildGraph();
 }
 function rebuildGraph() {
-    generateDigraph();
+  generateDigraph();
 }
 // Creates a random number of randomly colored nodes.
 function generateDigraph() {
-    myDiagram.startTransaction("generateDigraph");
-    var nodeArray = [];
-    var i;
+  myDiagram.startTransaction("generateDigraph");
+  var nodeArray = [];
+  var i;
 
-    $.ajax({
-      url: "/show_tree"
-    }).done(function(data) {
-      for (i = 0; i < data.courses.length; i++) {
-          var color = go.Brush.randomColor();
-        nodeArray.push({
-            key: JSON.parse(data.courses[i]).id,
-            text: JSON.parse(data.courses[i]).name,
-            fill: color,
-            stroke: color
-        });
-      }
-      myDiagram.model.nodeDataArray = nodeArray;
-      generateLinks(data.links);
+  $.ajax({
+    url: "/show_tree"
+  }).done(function(data) {
+    for (i = 0; i < data.courses.length; i++) {
+      var color = go.Brush.randomColor();
+      nodeArray.push({
+        key: JSON.parse(data.courses[i]).id,
+        text: JSON.parse(data.courses[i]).name,
+        fill: color,
+        stroke: color
+      });
+    }
+    myDiagram.model.nodeDataArray = nodeArray;
+    generateLinks(data.links);
 
-      layout();
-    });
-    myDiagram.commitTransaction("generateDigraph");
+    layout();
+  });
+  myDiagram.commitTransaction("generateDigraph");
 }
 // Create some link data
 function generateLinks(links) {
-    var linkArray = [];
-    for (var i = 0; i < links.length; i++) {
-      linkArray.push(JSON.parse(links[i]));
-    }
-    myDiagram.model.linkDataArray = linkArray;
+  var linkArray = [];
+  for (var i = 0; i < links.length; i++) {
+    linkArray.push(JSON.parse(links[i]));
+  }
+  myDiagram.model.linkDataArray = linkArray;
 }
 
 function layout() {
-    myDiagram.startTransaction("change Layout");
-    var lay = myDiagram.layout;
-    lay.direction = 90;
-    lay.layerSpacing = 25;
-    lay.columnSpacing = 25;
-    lay.cycleRemoveOption = go.LayeredDigraphLayout.CycleDepthFirst;
-    lay.layeringOption = go.LayeredDigraphLayout.LayerLongestPathSource;
-    lay.initializeOption = go.LayeredDigraphLayout.InitDepthFirstOut;
-    lay.aggressiveOption = go.LayeredDigraphLayout.AggressiveLess;
-    lay.packOption = 7;
-    lay.setsPortSpots = true;
+  myDiagram.startTransaction("change Layout");
+  var lay = myDiagram.layout;
+  lay.direction = 90;
+  lay.layerSpacing = 25;
+  lay.columnSpacing = 25;
+  lay.cycleRemoveOption = go.LayeredDigraphLayout.CycleDepthFirst;
+  lay.layeringOption = go.LayeredDigraphLayout.LayerLongestPathSource;
+  lay.initializeOption = go.LayeredDigraphLayout.InitDepthFirstOut;
+  lay.aggressiveOption = go.LayeredDigraphLayout.AggressiveLess;
+  lay.packOption = 7;
+  lay.setsPortSpots = true;
 
-    myDiagram.commitTransaction("change Layout");
+  myDiagram.commitTransaction("change Layout");
 }
 
 function clickNode() {
-    console.log("Clicked");
+  console.log("Clicked");
 }
 
 $(function() {
@@ -141,13 +141,13 @@ $(function() {
         var nodeArray = [];
         myDiagram.startTransaction("generateDigraph");
         for (i = 0; i < data.courses.length; i++) {
-            var color = go.Brush.randomColor();
-            nodeArray.push({
-                key: JSON.parse(data.courses[i]).id,
-                text: JSON.parse(data.courses[i]).name,
-                fill: color,
-                stroke: color
-            });
+          var color = go.Brush.randomColor();
+          nodeArray.push({
+            key: JSON.parse(data.courses[i]).id,
+            text: JSON.parse(data.courses[i]).name,
+            fill: color,
+            stroke: color
+          });
         }
         myDiagram.model.nodeDataArray = nodeArray;
         generateLinks(data.links);
@@ -159,78 +159,85 @@ $(function() {
   });
 
 
-    var availableTags = [
-        "ActionScript",
-        "AppleScript",
-        "Asp",
-        "BASIC",
-        "C",
-        "C++",
-        "Clojure",
-        "COBOL",
-        "ColdFusion",
-        "Erlang",
-        "Fortran",
-        "Groovy",
-        "Haskell",
-        "Java",
-        "JavaScript",
-        "Lisp",
-        "Perl",
-        "PHP",
-        "Python",
-        "Ruby",
-        "Scala",
-        "Scheme"
-    ];
+  var availableTags = [
+    "ActionScript",
+    "AppleScript",
+    "Asp",
+    "BASIC",
+    "C",
+    "C++",
+    "Clojure",
+    "COBOL",
+    "ColdFusion",
+    "Erlang",
+    "Fortran",
+    "Groovy",
+    "Haskell",
+    "Java",
+    "JavaScript",
+    "Lisp",
+    "Perl",
+    "PHP",
+    "Python",
+    "Ruby",
+    "Scala",
+    "Scheme"
+  ];
 
-    function split( val ) {
-        return val.split( /,\s*/ );
-    }
-    function extractLast( term ) {
-        return split( term ).pop();
-    }
+  function split( val ) {
+    return val.split( /,\s*/ );
+  }
+  function extractLast( term ) {
+    return split( term ).pop();
+  }
 
 
-    var array = [];
-    $("#myTags").tagit({
-        tagSource: function(request, response)
-        {
-            $.ajax({
-                data: { term:request.term },
-                type: "GET",
-                url:        "/course_codes",
-                data: {q: $("#myTags").data("ui-tagit").tagInput.val()},
-                dataType:   "json",
-                success: function( data ) {
-                    array = data;
-                    response( $.map( data, function( item ) {
+  var array = [];
+  $("#myTags").tagit({
+    tagSource: function(request, response)
+    {
+      $.ajax({
+        data: { term:request.term },
+        type: "GET",
+        url:        "/course_codes",
+        data: {q: $("#myTags").data("ui-tagit").tagInput.val()},
+        dataType:   "json",
+        success: function( data ) {
+          array = data;
+          response( $.map( data, function( item ) {
 
-                        return {
-                            label:item,
-                            value: item
-                        }
-                    }));
-                }
-
-            });
-        },
-        fieldName: "restricciones",
-        placeholderText: "Restricciones",
-        autocomplete: {delay: 0, minLength: 1},
-        beforeTagAdded: function(event, ui) {
-            if(array.indexOf(ui.tagLabel) == -1)
-            {
-                return false;
+            return {
+              label:item,
+              value: item
             }
-            if(ui.tagLabel == "not found")
-            {
-                return false;
-            }
-
+          }));
         }
-    });
 
-    $('select').material_select();
+      });
+    },
+    fieldName: "restricciones",
+    placeholderText: "Restricciones",
+    autocomplete: {delay: 0, minLength: 1},
+    beforeTagAdded: function(event, ui) {
+      if(array.indexOf(ui.tagLabel) == -1)
+        {
+          return false;
+        }
+        if(ui.tagLabel == "not found")
+          {
+            return false;
+          }
+
+    }
+  });
+
+  $('select').material_select();
+
+  $('#new_course').on("submit", function() {
+    $.each($('.tagit-label'), function( index, value ) {
+      current_val = $("#requirements_field").val();
+      $("#requirements_field").val(current_val + ',' + $(value).text());
+    });
+  });
   initDiagram();
 });

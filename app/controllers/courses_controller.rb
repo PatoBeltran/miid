@@ -9,9 +9,8 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
 
-    create_requirements(@course, params[:course_requirements])
-
     if @course.save
+      create_requirements(@course, params[:course_requirements])
       redirect_to courses_path
     else
       render :new
@@ -71,7 +70,7 @@ class CoursesController < ApplicationController
   def create_requirements(course, requirements)
     requirements.split(",").each do |code|
       req = Course.find_by(code: code)
-      course.requirements << req
+      course.requirements << req if req.present?
     end
   end
 end
