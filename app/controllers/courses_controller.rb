@@ -35,7 +35,7 @@ class CoursesController < ApplicationController
   end
 
   def unlink_course
-    StudentCourse.where(course_id: params[:course_id], student_id: current_user.userable_id).destroy
+    StudentCourse.where(course_id: params[:course_id], student_id: current_user.userable_id).first.destroy
     Student.eager_load(:courses)
     Course.eager_load(:course_requirements)
     respond_to do |format|
