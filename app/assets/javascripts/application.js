@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery-ui.min
 //= require jquery_ujs
-//= require turbolinks
 //= require materialize-sprockets
 //= require go
 //= require tag-it.min
@@ -203,7 +202,6 @@ $(function() {
     }
   });
 
-  $('select').material_select();
 
   $('#new_course').on("submit", function() {
     $.each($('.tagit-label'), function( index, value ) {
@@ -211,7 +209,16 @@ $(function() {
       $("#requirements_field").val(current_val + ',' + $(value).text());
     });
   });
-  initDiagram();
+
+  $(document).ready(function(){
+    $('select').material_select();
+    $(".dropdown-button").dropdown();
+
+    console.log("HEY");
+    if (document.getElementById("myDiagram")) {
+      initDiagram();
+    }
+  });
 });
 
 
