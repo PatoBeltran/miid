@@ -1,10 +1,28 @@
-<% @courses.each do |course| %>
-  <% if course.selectable %>
-    <div>
-      <%=  course.name %>
-      <%=  course.description %>
-      <%=  course.code %>
-      <%=  course.category.name %>
-    </div>
-  <% end %>
-<% end %>
+<div class="row" style="margin-top: 20px;">
+  <div class="col s2">&nbsp;</div>
+  <div class="col s8 z-depth-2">
+    <%= link_to new_course_path do %>
+      Crear Materia
+    <% end %>
+    <h4>Cursos</h4>
+    <table class="hoverable">
+      <thead>
+        <tr>
+          <th data-field="name">Nombre</th>
+          <th data-field="code">Clave</th>
+          <th data-field="selectable">Tópico a elegir</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @courses.each do |course| %>
+        <tr>
+          <td><%= course.name %></td>
+          <td><%= course.code %></td>
+          <td><%= course.selectable? ? "SI" : "NO" %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col s2">&nbsp;</div>
+</div>

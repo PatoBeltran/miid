@@ -18,7 +18,7 @@ class CoursesController < ApplicationController
   end
 
   def index
-    @courses = Course.all
+    @courses = Course.where(selectable: true)
   end
 
   def link_course

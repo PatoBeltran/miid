@@ -33,6 +33,6 @@ class User < ActiveRecord::Base
   validates :name, :uid, presence: true
 
   def admin?
-    userable.admin?
+    self.id.present? ? userable.admin? : false
   end
 end
