@@ -21,8 +21,11 @@ class StudentsController < ApplicationController
   end
 
   def show
+    Course.eager_load(:course_requirements)
+    Course.eager_load(:requirements)
+
     @student = Student.find(params[:id])
-    @courses = Course.all.includes(:requirements, :course_requirements)
+    @courses = Course.get_all
   end
 
   def show_tree
