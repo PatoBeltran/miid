@@ -96,7 +96,8 @@ function generateDigraph() {
   var i;
 
   $.ajax({
-    url: "/show_tree"
+    url: "/show_tree",
+    data: { id: window.location.pathname.split("/")[2] }
   }).done(function(data) {
     for (i = 0; i < data.courses.length; i++) {
       //console.log(data);

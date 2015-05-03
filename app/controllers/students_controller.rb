@@ -32,7 +32,7 @@ class StudentsController < ApplicationController
     Student.eager_load(:courses)
     Course.eager_load(:course_requirements)
     respond_to do |format|
-      format.json { render :json => { courses: get_courses(User.find(params[:id]).userable.courses), links: get_links(User.find(params[:id]).userable.courses) } }
+      format.json { render :json => { courses: get_courses(Student.find(params[:id]).userable.courses), links: get_links(Student.find(params[:id]).userable.courses) } }
     end
   end
 
