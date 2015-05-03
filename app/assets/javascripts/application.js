@@ -73,7 +73,7 @@ function generateDigraph() {
           var color = go.Brush.randomColor();
         nodeArray.push({
             key: JSON.parse(data.courses[i]).id,
-            text: JSON.parse(data.courses[i]).name.substr(0,40),
+            text: JSON.parse(data.courses[i]).name,
             fill: color,
             stroke: color
         });
@@ -141,11 +141,13 @@ $(function() {
         var nodeArray = [];
         myDiagram.startTransaction("generateDigraph");
         for (i = 0; i < data.courses.length; i++) {
-          nodeArray.push({
-            key: JSON.parse(data.courses[i]).id,
-            text: JSON.parse(data.courses[i]).name,
-            fill: go.Brush.randomColor()
-          });
+            var color = go.Brush.randomColor();
+            nodeArray.push({
+                key: JSON.parse(data.courses[i]).id,
+                text: JSON.parse(data.courses[i]).name,
+                fill: color,
+                stroke: color
+            });
         }
         myDiagram.model.nodeDataArray = nodeArray;
         generateLinks(data.links);
@@ -155,5 +157,80 @@ $(function() {
       });
     }
   });
+
+
+    var availableTags = [
+        "ActionScript",
+        "AppleScript",
+        "Asp",
+        "BASIC",
+        "C",
+        "C++",
+        "Clojure",
+        "COBOL",
+        "ColdFusion",
+        "Erlang",
+        "Fortran",
+        "Groovy",
+        "Haskell",
+        "Java",
+        "JavaScript",
+        "Lisp",
+        "Perl",
+        "PHP",
+        "Python",
+        "Ruby",
+        "Scala",
+        "Scheme"
+    ];
+
+    function split( val ) {
+        return val.split( /,\s*/ );
+    }
+    function extractLast( term ) {
+        return split( term ).pop();
+    }
+
+
+    var array = [];
+    $("#myTags").tagit({
+        tagSource: function(request, response)
+        {
+            $.ajax({
+                data: { term:request.term },
+                type: "GET",
+                url:        "/course_codes",
+                data: {q: $("#myTags").data("ui-tagit").tagInput.val()},
+                dataType:   "json",
+                success: function( data ) {
+                    array = data;
+                    response( $.map( data, function( item ) {
+
+                        return {
+                            label:item,
+                            value: item
+                        }
+                    }));
+                }
+
+            });
+        },
+        fieldName: "restricciones",
+        placeholderText: "Restricciones",
+        autocomplete: {delay: 0, minLength: 1},
+        beforeTagAdded: function(event, ui) {
+            if(array.indexOf(ui.tagLabel) == -1)
+            {
+                return false;
+            }
+            if(ui.tagLabel == "not found")
+            {
+                return false;
+            }
+
+        }
+    });
+
+    $('select').material_select();
   initDiagram();
 });
