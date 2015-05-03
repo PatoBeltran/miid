@@ -22,40 +22,70 @@
 /**
  * Created by Eduardo on 5/2/15.
  */
+
+
+var lastClicked;
+
 function initDiagram() {
   if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
   var $ = go.GraphObject.make;  // for conciseness in defining templates
   myDiagram =
-    $(go.Diagram, "myDiagram",  // must be the ID or reference to div
-      {
-        initialAutoScale: go.Diagram.UniformToFill,
-        layout: $(go.LayeredDigraphLayout)
-        // other Layout properties are set by the layout function, defined below
-      });
-      // define the Node template
-      myDiagram.nodeTemplate =
-        $(go.Node, "Spot",
-          { locationSpot: go.Spot.Center },
+      $(go.Diagram, "myDiagram",  // must be the ID or reference to div
+          {
+            initialAutoScale: go.Diagram.UniformToFill,
+            layout: $(go.LayeredDigraphLayout)
+            // other Layout properties are set by the layout function, defined below
+          });
+  // define the Node template
+  myDiagram.nodeTemplate =
+      $(go.Node, "Spot",
+          { locationSpot: go.Spot.Center, deletable: true, canDelete: function() {console.log("a"); return true;} },
+
           $(go.Shape, "RoundedRectangle",
-            { fill: "lightgray",  // the initial value, but data-binding may provide different value
-              strokeWidth: 10,
-              desiredSize: new go.Size(100, 50) },
+              { fill: "lightgray",  // the initial value, but data-binding may provide different value
+                strokeWidth: 10,
+                desiredSize: new go.Size(100, 50),
+                mouseEnter: function() {
+
+                }
+              },
               new go.Binding("fill", "fill"), new go.Binding("stroke", "stroke")),
-              $(go.TextBlock,
-                new go.Binding("text", "text"), {
-                  isMultiline: true,
-                  desiredSize: new go.Size(100, 50),
-                  textAlign: "center",
-                  overflow: go.TextBlock.OverflowClip
-                })
-         );
-         // define the Link template to be minimal
-         myDiagram.linkTemplate =
-           $(go.Link,
-             { selectable: false },
-             $(go.Shape));
-             // generate a tree with the default values
-             rebuildGraph();
+          $(go.TextBlock,
+              new go.Binding("text", "text"), {
+                isMultiline: true,
+                desiredSize: new go.Size(100, 50),
+                textAlign: "center",
+                overflow: go.TextBlock.OverflowClip
+              })
+      );
+  // define the Link template to be minimal
+  myDiagram.linkTemplate =
+      $(go.Link,
+          { selectable: false },
+          $(go.Shape));
+  // generate a tree with the default values
+
+  myDiagram.addDiagramListener("SelectionDeleting",
+      function(e) {
+        var idDel = lastClicked.data.key;
+        jQuery.ajax({
+          url: "/unlink_course",
+          data: {course_id: idDel},
+          method: "POST"
+        });
+
+
+      }
+  );
+
+  myDiagram.addDiagramListener("ObjectSingleClicked",
+      function(e) {
+        var part = e.subject.part;
+        lastClicked = e.subject.part;
+        if (!(part instanceof go.Link)) console.log("Clicked on " + part.data.key);
+      });
+
+  rebuildGraph();
 }
 function rebuildGraph() {
   generateDigraph();
@@ -116,7 +146,7 @@ function clickNode() {
 
 $(function() {
   // there's the gallery and the trash
-  var $gallery = $("#gallery"), $diagram = $("#myDiagram");
+  var $gallery = $("#courses"), $diagram = $("#myDiagram");
 
   // let the gallery items be draggable
   $("a", $gallery).draggable({
@@ -129,9 +159,8 @@ $(function() {
 
   // let the trash be droppable, accepting the gallery items
   $diagram.droppable({
-    accept: "#gallery > a",
+    accept: "#courses > a",
     drop: function (event, ui) {
-
       //                    deleteImage( ui.draggable );
       $.ajax({
         url: "/link_course",
@@ -157,7 +186,25 @@ $(function() {
       });
     }
   });
+  var array = [];
+  $("#myTags").tagit({
+    tagSource: function(request, response)
+    {
+      $.ajax({
+        type: "GET",
+        url:        "/course_codes",
+        data: {q: $("#myTags").data("ui-tagit").tagInput.val()},
+        dataType:   "json",
+        success: function( data ) {
+          array = data;
+          response( $.map( data, function( item ) {
 
+            return {
+              label:item,
+              value: item
+            }
+          }));
+        }
 
       });
     },
@@ -208,16 +255,16 @@ function searchCourse(q) {
 
       $(".classTopic").remove();
 
-            data.forEach(function (element) {
-                var newChild = $('<a href="#" class="col s12 red classTopic" data-key="'+element.id+'">' +
-                    '<h5 class="white-text">'+element.name+'</h5>' +
-                    '<div class="red-text white center border-radius-13" style="width: 26px; height: 26px; line-height: 26px; position: absolute; bottom: 10px; right: 10px;">'+element.requirements+'</div>' +
-                    '<h6 class="white-text" style="position: absolute; bottom: 10px;">'+element.code+'</h6>' +
-                    '</a>');
+      data.forEach(function (element) {
+        var newChild = $('<a href="#" class="col s12 red classTopic" data-key="'+element.id+'">' +
+            '<h5 class="white-text">'+element.name+'</h5>' +
+            '<div class="red-text white center border-radius-13" style="width: 26px; height: 26px; line-height: 26px; position: absolute; bottom: 10px; right: 10px;">'+element.requirements+'</div>' +
+            '<h6 class="white-text" style="position: absolute; bottom: 10px;">'+element.code+'</h6>' +
+            '</a>');
 
         $('#courses').append(newChild);
 
-        $("a", $("#gallery")).draggable({
+        $("a", $("#courses")).draggable({
           //                cancel: "a.ui-icon", // clicking an icon won't initiate dragging
           revert: "invalid", // when not dropped, the item will revert back to its initial position
           containment: "document",
@@ -229,4 +276,13 @@ function searchCourse(q) {
     }
   })
 }
+
+$(window).keydown(function (e) {
+      //Supr 46
+      if (e.keyCode == 8) {
+        console.log("A");
+        myDiagram.commandHandler.deleteSelection();
+      }
+    }
+);
 
