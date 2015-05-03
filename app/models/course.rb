@@ -19,7 +19,7 @@ class Course < ActiveRecord::Base
   has_many :course_requirements
   belongs_to :category
 
-  validates :name, :code, :selectable, presence: true
+  validates :name, :code, presence: true
 
   def to_builder
     Jbuilder.new do |course|
