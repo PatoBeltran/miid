@@ -77,6 +77,8 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  config.action_mailer.default_url_options = { :host => 'mi2d.herokuapp.com' }
+
   # Email Setup
   EMAIL_CREDENTIALS = {
     username: "patobeltran",
