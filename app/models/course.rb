@@ -25,6 +25,7 @@ class Course < ActiveRecord::Base
     Jbuilder.new do |course|
       course.id id
       course.name name
+      course.color category.color
     end
   end
 
